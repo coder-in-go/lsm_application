@@ -1,5 +1,10 @@
 package com.hcl.physician_portal.service;
 
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.hcl.physician_portal.Enum.TemperatureInfo;
 import com.hcl.physician_portal.dto.SpecimenPickupRequestDTO;
 import com.hcl.physician_portal.dto.ViewSpecimenPickupRequest;
@@ -14,9 +19,13 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.Optional;
 
 @Service
 public class SpecimenPickupRequestService {
+    public Optional<Physician> getPhysicianByMobileNumber(String mobileNumber) {
+        return iPhysicianRepository.findByMobileNumber(mobileNumber);
+    }
 
     private final ISpecimenPickupRequestRepository iSpecimenPickupRequestRepository;
     private final SpecimenPickupRequestMapper specimenPickupRequestMapper;
@@ -60,8 +69,6 @@ public class SpecimenPickupRequestService {
         req2.setPickupAddress("Vikram Multispeciality Hospital Madurai, Madurai");
         req2.setTemperatureInfo(TemperatureInfo.FROZEN);
         req2.setPickupType(com.hcl.physician_portal.Enum.PickupType.LOCKBOX);
-        req2.setPickupRequestTimeBefore(java.time.LocalDateTime.now().plusHours(5).withMinute(0));
-        req2.setRouteID("44fcf11a-a688-3f35-8379-14b774db03fc");
         req2.setStatus(com.hcl.physician_portal.Enum.PickupStatus.CREATED);
         req2.setPhysician(physician);
         req2.setCreatedAt(java.time.LocalDateTime.now());
@@ -72,9 +79,6 @@ public class SpecimenPickupRequestService {
         // Date
         SpecimenPickupRequest req3 = new SpecimenPickupRequest();
         req3.setScheduledDate(java.time.LocalDateTime.now());
-        // req3.setPickupAddress("Madamanuru, SPSR Nellore district, Andhra Pradesh,
-        // 524405, India");
-        req3.setRouteID("00bc9352-2197-3296-93b3-4a8455cbb04b");
         req3.setPickupAddress("Madurai Junction, Madurai");
         req3.setTemperatureInfo(com.hcl.physician_portal.Enum.TemperatureInfo.FROZEN);
         req3.setPickupType(com.hcl.physician_portal.Enum.PickupType.LOCKBOX);
@@ -89,8 +93,6 @@ public class SpecimenPickupRequestService {
         // temperature info - Scheduled Date is 2 days after current Date
         SpecimenPickupRequest req4 = new SpecimenPickupRequest();
         req4.setScheduledDate(java.time.LocalDateTime.now().plusDays(2));
-        // req4.setPickupAddress("Podalakur, SPSR Nellore district, Andhra Pradesh,
-        // 524345, India");
         req4.setPickupAddress("Vikram Multispeciality Hospital Madurai, Madurai");
         req4.setTemperatureInfo(TemperatureInfo.AMBIENT);
         req4.setPickupType(com.hcl.physician_portal.Enum.PickupType.IN_OFFICE);
@@ -103,11 +105,9 @@ public class SpecimenPickupRequestService {
         requests.add(req4);
 
         // Example 5: LOCKBOX, pickup request time after - Scheduled Date is 3 days
-        // current Date
+        // after current Date
         SpecimenPickupRequest req5 = new SpecimenPickupRequest();
         req5.setScheduledDate(java.time.LocalDateTime.now().plusDays(3));
-        // req5.setPickupAddress("Madamanuru, SPSR Nellore district, Andhra Pradesh,
-        // 524405, India");
         req5.setRouteID("00bc9352-2197-3296-93b3-4a8455cbb04b");
         req5.setPickupAddress("Madurai Junction, Madurai");
         req5.setTemperatureInfo(com.hcl.physician_portal.Enum.TemperatureInfo.FROZEN);
@@ -119,23 +119,63 @@ public class SpecimenPickupRequestService {
         req5.setUpdatedAt(java.time.LocalDateTime.now());
         requests.add(req5);
 
-        // // Example 4: IN_OFFICE, closure time, scheduled date, pickup address,
-        // // temperature info
-        // SpecimenPickupRequest req4 = new SpecimenPickupRequest();
-        // req4.setScheduledDate(java.time.LocalDateTime.now().plusDays(4));
-        // req4.setPickupAddress("Akkampeta, SPSR Nellore district, Andhra Pradesh,
-        // India");
-        // req4.setTemperatureInfo(TemperatureInfo.REFRIGERATED);
-        // req4.setPickupType(com.hcl.physician_portal.Enum.PickupType.IN_OFFICE);
-        // req4.setClosureTime(java.time.LocalDateTime.now().plusDays(4).withHour(18).withMinute(0));
-        // req4.setStatus(com.hcl.physician_portal.Enum.PickupStatus.CREATED);
-        // req4.setCreatedAt(java.time.LocalDateTime.now());
-        // req4.setUpdatedAt(java.time.LocalDateTime.now());
-        // requests.add(req4);
-
         // Save all requests
         return specimenPickupRequestMapper
                 .specimenPickupRequestListToViewList(iSpecimenPickupRequestRepository.saveAll(requests));
+    }
+
+    public Map<String, Object> getPhysicianDailyRequestStats() {
+        // Need to fetch from the JWT token details
+        Physician physician = iPhysicianRepository.findByMobileNumber("9876543210")
+                .orElseThrow(() -> new PhysicianNotFoundException("Physician not found"));
+        UUID physicianId = physician.getId();
+        List<SpecimenPickupRequest> requests = iSpecimenPickupRequestRepository.findAll()
+                .stream()
+                .filter(req -> req.getPhysician() != null && physicianId.equals(req.getPhysician().getId()))
+                .collect(Collectors.toList());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Map<String, Long> dailyStats = requests.stream()
+                .collect(Collectors.groupingBy(
+                        req -> req.getScheduledDate().toLocalDate().format(formatter),
+                        Collectors.counting()));
+
+        // Convert to list of {date, count}
+        List<Map<String, Object>> statsList = dailyStats.entrySet().stream()
+                .map(e -> {
+                    Map<String, Object> m = new HashMap<>();
+                    m.put("date", e.getKey());
+                    m.put("count", e.getValue());
+                    return m;
+                })
+                .collect(Collectors.toList());
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("dailyStats", statsList);
+        return result;
+    }
+
+    public Map<String, Object> getPhysicianRequestStatusSummary() {
+        // Need to fetch from the JWT token details
+        Physician physician = iPhysicianRepository.findByMobileNumber("9876543210")
+                .orElseThrow(() -> new PhysicianNotFoundException("Physician not found"));
+        UUID physicianId = physician.getId();
+        List<SpecimenPickupRequest> requests = iSpecimenPickupRequestRepository.findAll()
+                .stream()
+                .filter(req -> req.getPhysician() != null && physicianId.equals(req.getPhysician().getId()))
+                .collect(Collectors.toList());
+        long assignedCount = requests.stream()
+                .filter(req -> req.getStatus() != null && req.getStatus().name().equalsIgnoreCase("ASSIGNED"))
+                .count();
+
+        long createdCount = requests.stream()
+                .filter(req -> req.getStatus() != null && req.getStatus().name().equalsIgnoreCase("CREATED"))
+                .count();
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("assignedCount", assignedCount);
+        result.put("createdCount", createdCount);
+        return result;
     }
 
     public ViewSpecimenPickupRequest createSpecimenPickupRequest(SpecimenPickupRequestDTO specimenPickupRequestDTO) {
