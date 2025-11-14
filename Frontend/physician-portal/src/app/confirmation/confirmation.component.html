@@ -1,0 +1,24 @@
+<div class="confirmation-container">
+  <div class="confirmation-header">
+    SUCCESS
+  <div class="confirmation-subheader">Your confirmation id is {{ confirmationNumber }}</div>
+  </div>
+  <div class="confirmation-schedule">
+    <span class="calendar-icon">
+      <!-- Calendar SVG Icon -->
+      <svg width="28" height="28" fill="none" stroke="#0066b3" stroke-width="2" viewBox="0 0 24 24">
+        <rect x="3" y="5" width="18" height="16" rx="2"/>
+        <path d="M16 3v4"/>
+        <path d="M8 3v4"/>
+        <path d="M3 9h18"/>
+      </svg>
+    </span>
+    <span class="confirmation-schedule-text">Your Pickup is Scheduled for {{ scheduledDate }}</span>
+  </div>
+  <div class="confirmation-details">
+    <div><strong>Pickup Address:</strong> {{ pickupAddress }}</div>
+    <div><strong>Temperature Info:</strong> {{ temperatureInfo }}</div>
+  <div><strong>Pickup Type:</strong> {{ pickupType }}</div>
+    <div *ngIf="eta"><strong>Estimated Time:</strong> {{ eta }}</div>
+  </div>
+</div>
