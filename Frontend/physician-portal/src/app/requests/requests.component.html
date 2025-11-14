@@ -1,0 +1,43 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid align-content-center">
+  <div class="col-12 text-center fs-2 title my-3">
+    {{ title }}
+  </div>
+  <table class="table table-bordered text-center border-primary-subtle">
+    <thead>
+      <tr>
+        <th class="table-head">Request ID</th>
+        <th class="table-head">Pickup Address</th>
+        <th class="table-head">Scheduled Date</th>
+        <th class="table-head">Temperature Info</th>
+        <th class="table-head">Pickup Type</th>
+        <th class="table-head">Status</th>
+        <th class="table-head">Office Closure Time</th>
+        <th class="table-head">Pickup Timeframe After</th>
+        <th class="table-head">Pickup Timeframe Before</th>
+        <th class="table-head">Estimated Time of Arrival</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of requests">
+        <td class="table-data">{{ request.id }}</td>
+        <td class="table-data">{{ request.pickupAddress }}</td>
+        <td class="table-data">{{ request.scheduledDate | dateTimeFormat }}</td>
+        <td class="table-data">{{ request.temperatureInfo }}</td>
+        <td class="table-data">{{ request.pickupType }}</td>
+        <td class="table-data">{{ request.status }}</td>
+        <td class="table-data">{{ request.closureTime | dateTimeFormat }}</td>
+        <td class="table-data">
+          {{ request.pickupTimeframeAfter | dateTimeFormat }}
+        </td>
+        <td class="table-data">
+          {{ request.pickupTimeframeBefore | dateTimeFormat }}
+        </td>
+        <td class="table-data">
+          {{ request.estimatedTimeOfArrival }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

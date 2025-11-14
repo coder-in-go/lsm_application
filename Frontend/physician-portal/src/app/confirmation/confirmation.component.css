@@ -1,0 +1,66 @@
+.confirmation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  background: #f4f4f4;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,102,179,0.08);
+}
+.confirmation-header {
+  background: #0066b3;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  padding: 18px 32px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  text-align: center;
+  width: 100%;
+  position: relative;
+}
+.confirmation-subheader {
+  font-size: 1.1rem;
+  color: #e3eaf2;
+  font-weight: 500;
+  margin-top: 8px;
+  text-align: center;
+}
+.confirmation-schedule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+.calendar-icon {
+  display: flex;
+  align-items: center;
+}
+.confirmation-schedule-text {
+  font-size: 1.1rem;
+  color: #0066b3;
+  font-weight: 600;
+}
+.confirmation-details {
+  margin-top: 24px;
+  background: #f8fafd;
+  border-radius: 8px;
+  padding: 18px 24px;
+  box-shadow: 0 1px 6px rgba(0,102,179,0.06);
+  font-size: 1rem;
+  color: #333;
+  width: 100%;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.confirmation-number {
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 500;
+  margin-top: 8px;
+  text-align: center;
+}

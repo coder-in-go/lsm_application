@@ -1,0 +1,11 @@
+.hcl-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f4f8fb;
+}
+.hcl-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}

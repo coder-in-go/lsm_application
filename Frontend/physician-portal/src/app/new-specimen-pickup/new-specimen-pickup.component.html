@@ -1,0 +1,257 @@
+<app-navbar [title]="title"></app-navbar>
+<div class="container-fluid">
+  <div class="pickup-header row align-items-center justify-content-center">
+    New Specimen Request
+  </div>
+  <div
+    class="row justify-content-start pickup-schedule-subheading mx-2 my-2 fs-5 fst-italic"
+  >
+    Pickup Scheduling
+  </div>
+  <div class="border rounded p-3 mb-3 bg-white">
+    <div class="row align-items-center">
+      <div class="col-6">
+        <span class="pickup-date-label"
+          >Scheduled for {{ selectedDate | date : "longDate" }}</span
+        >
+      </div>
+      <div class="col-6 text-end">
+        <button
+          class="btn calendar-btn d-inline-flex align-items-center"
+          title="Change Date"
+          (click)="openCalendar()"
+        >
+          <span class="change-day-icon me-1">
+            <svg
+              width="28"
+              height="28"
+              fill="none"
+              stroke="#0066b3"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <rect x="3" y="5" width="18" height="16" rx="2" />
+              <path d="M16 3v4" />
+              <path d="M8 3v4" />
+              <path d="M3 9h18" />
+            </svg>
+          </span>
+          CHANGE DATE
+        </button>
+      </div>
+      <div *ngIf="calendarOpen" class="calendar-modal mt-2">
+        <input
+          type="date"
+          (change)="onDateChange($event)"
+          [value]="selectedDate.toISOString().substring(0, 10)"
+          [min]="minDate"
+          class="calendar-input"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="request-details-box mt-3 mb-4 p-3">
+    <div class="row mx-2 my-3 request-details-subheading fst-italic fs-5">
+      Request Details
+    </div>
+    <div class="pickup-address-subheading mx-1 my-1 fs-6">
+      Pickup Address <span class="mandatory">*</span>
+    </div>
+    <select
+      class="address-dropdown"
+      required
+      (change)="onAddressChange($event)"
+    >
+      <option value="" disabled selected>Select Address</option>
+      <option *ngFor="let addr of addresses" [value]="addr.id">
+        {{ addr.address
+        }}<span *ngIf="addr.landmark">, {{ addr.landmark }}</span>
+      </option>
+    </select>
+    <div class="specimen-details-subheading section-header">
+      Specimen Details
+    </div>
+    <div class="temperature-info-label theme-primary">
+      Temperature Info <span class="mandatory">*</span>
+    </div>
+    <div class="temperature-checkboxes">
+      <label>
+        <input
+          type="radio"
+          name="temperature"
+          value="Ambient"
+          (change)="onSpecimenDetailsChange($event)"
+        />
+        Ambient
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="temperature"
+          value="Refrigerated"
+          (change)="onSpecimenDetailsChange($event)"
+        />
+        Refrigerated
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="temperature"
+          value="Frozen"
+          (change)="onSpecimenDetailsChange($event)"
+        />
+        Frozen
+      </label>
+    </div>
+    <div class="pickup-location-label-row">
+      <div class="pickup-location-label theme-primary">
+        Pickup Location <span class="mandatory">*</span>
+      </div>
+    </div>
+    <div class="pickup-location-controls-row">
+      <div class="location-checkboxes-controls">
+        <label>
+          <input
+            type="radio"
+            name="location"
+            value="Lockbox"
+            (change)="onPickupLocationChange($event)"
+            [(ngModel)]="pickupLocation"
+          />
+          Lockbox
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="location"
+            value="In Office"
+            (change)="onPickupLocationChange($event)"
+            [(ngModel)]="pickupLocation"
+          />
+          In Office
+        </label>
+      </div>
+
+      <div class="closure-control">
+        <div *ngIf="inOfficeChecked" class="office-close-inline">
+          <div class="office-close-label">
+            Select Closure Time <span class="mandatory">*</span>
+          </div>
+          <div class="office-close-row">
+            <div class="closure-display" (click)="toggleClosurePanel($event)">
+              {{ selectedClosureTime ? selectedClosureTime : "" }}
+            </div>
+            <span
+              class="office-close-icon"
+              aria-hidden="true"
+              (click)="toggleClosurePanel($event)"
+            >
+              <svg
+                width="12"
+                height="8"
+                viewBox="0 0 12 8"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1 1L6 6L11 1"
+                  stroke="#0066b3"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+          </div>
+          <div *ngIf="showClosurePanel" class="closure-panel">
+            <div
+              *ngFor="let t of officeHours"
+              class="closure-item"
+              [class.disabled]="isClosureTimeDisabled(t)"
+              [attr.aria-disabled]="isClosureTimeDisabled(t) ? 'true' : null"
+              (click)="!isClosureTimeDisabled(t) && selectClosureTime(t)"
+              [style.pointerEvents]="isClosureTimeDisabled(t) ? 'none' : 'auto'"
+              [style.opacity]="isClosureTimeDisabled(t) ? 0.5 : 1"
+            >
+              {{ t }}
+            </div>
+          </div>
+          <span *ngIf="showClosureTimeError" class="mandatory-error"
+            >Closure Time is required.</span
+          >
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="addressSelected"> </ng-container>
+    <div
+      *ngIf="addressSelected"
+      class="indicate-pickup-timeframe-header section-header"
+    >
+      Indicate Pickup Time Frame
+      <div class="indicate-pickup-timeframe-controls">
+        <label class="pickup-radio-inline">
+          <input
+            type="radio"
+            name="pickupTimeType"
+            value="before"
+            [(ngModel)]="pickupTimeType"
+          />
+          Request Pickup time before
+          <select
+            class="pickup-time-dropdown"
+            [disabled]="pickupTimeType !== 'before'"
+            [(ngModel)]="selectedPickupTime"
+          >
+            <option value="" disabled selected>Select Time</option>
+            <option *ngFor="let time of pickupTimeIntervals" [value]="time">
+              {{ time }}
+            </option>
+          </select>
+        </label>
+        <label class="pickup-radio-inline">
+          <input
+            type="radio"
+            name="pickupTimeType"
+            value="after"
+            [(ngModel)]="pickupTimeType"
+          />
+          Request Pickup time after
+          <select
+            class="pickup-time-dropdown"
+            [disabled]="pickupTimeType !== 'after'"
+            [(ngModel)]="selectedPickupTimeAfter"
+          >
+            <option value="" disabled selected>Select Time</option>
+            <option
+              *ngFor="let time of pickupTimeAfterIntervals"
+              [value]="time"
+            >
+              {{ time }}
+            </option>
+          </select>
+        </label>
+        <button
+          *ngIf="pickupTimeType"
+          class="clear-btn-inline"
+          type="button"
+          (click)="clearPickupTimeType()"
+        >
+          CLEAR
+        </button>
+      </div>
+    </div>
+    <div class="specimen-action-buttons">
+      <button
+        class="specimen-btn submit-btn"
+        type="button"
+        [disabled]="!isFormValid()"
+        [ngClass]="isFormValid() ? 'enabled' : 'disabled'"
+        (click)="onSubmit()"
+      >
+        SUBMIT
+      </button>
+      <button class="specimen-btn cancel-btn" type="button">CANCEL</button>
+    </div>
+  </div>
+  <!-- </div> -->
+</div>

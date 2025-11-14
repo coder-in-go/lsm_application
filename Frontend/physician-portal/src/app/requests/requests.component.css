@@ -1,0 +1,17 @@
+.title {
+  font-family: "Times New Roman", Times, serif;
+  color: rgb(0, 51, 169);
+}
+
+.table-head {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #35068d;
+  font-size: 13px;
+  background-color: rgb(221, 255, 255);
+}
+
+.table-data {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #010008;
+  font-size: 13px;
+}

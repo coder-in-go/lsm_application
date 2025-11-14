@@ -1,0 +1,13 @@
+.nav-link {
+  color: #e7e6fd;
+}
+
+.nav-link:hover {
+  color: #2c006f;
+  background-color: white;
+}
+
+.title {
+  font-family: "Times New Roman", Times, serif;
+  color: rgb(216, 228, 255);
+}

@@ -1,0 +1,32 @@
+<div class="specimen-pickup-container">
+  <h2 class="specimen-header">Specimen Pickup</h2>
+  <h3 class="specimen-subheading">Request Specimen Pickup Online</h3>
+  <div class="specimen-actions">
+    <button class="specimen-btn primary" (click)="startNewRequest()">
+      START NEW REQUEST
+    </button>
+    <span class="specimen-or"></span>
+  </div>
+
+  <div class="notification-stack">
+    <div
+      *ngFor="let notification of notifications"
+      class="notification-alert notification-top-right"
+    >
+      <strong>{{ notification.message }}</strong>
+      <ul>
+        <li *ngFor="let detail of notification.details">
+          <div>
+            <span>Specimen ID:</span> <b>{{ detail.id }}</b>
+          </div>
+          <div>
+            <span>Pickup Address:</span> <b>{{ detail.pickupAddress }}</b>
+          <div>
+            <span>Expected Time of Arrival:</span> <b>{{ detail.eta }}</b>
+          </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

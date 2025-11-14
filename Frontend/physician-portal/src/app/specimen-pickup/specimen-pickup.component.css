@@ -1,0 +1,88 @@
+/* Notification styles */
+/* Notification stack styles */
+.notification-stack {
+  position: fixed;
+  top: 32px;
+  right: 32px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-end;
+}
+.notification-alert {
+  background: #e6f7e6;
+  border: 1px solid #4caf50;
+  color: #256029;
+  padding: 16px;
+  border-radius: 8px;
+  max-width: 350px;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.1);
+}
+.notification-alert ul {
+  margin: 10px 0 0 0;
+  padding: 0;
+  list-style: none;
+}
+.notification-alert li {
+  margin-bottom: 12px;
+  font-size: 1rem;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.specimen-pickup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  background: #f4f8fb;
+}
+.specimen-header {
+  color: #0066b3;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.specimen-subheading {
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 32px;
+  text-align: center;
+}
+.specimen-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.specimen-btn {
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.specimen-btn.primary {
+  background: #0066b3;
+  color: #fff;
+}
+.specimen-btn.primary:hover {
+  background: #004a80;
+}
+.specimen-btn.secondary {
+  background: #e3eaf2;
+  color: #0066b3;
+}
+.specimen-btn.secondary:hover {
+  background: #c2d6ee;
+}
+.specimen-or {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #666;
+}

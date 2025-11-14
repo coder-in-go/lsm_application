@@ -1,0 +1,537 @@
+/* Request details box styling */
+.request-details-box {
+  border: 2px solid #e9f5ff;
+  border-radius: 12px;
+  /* background: #f8fafd; */
+  /* box-shadow: 0 2px 12px rgba(0, 102, 179, 0.08); */
+}
+/* Custom hover for change date button */
+/* .btn-outline-primary.change-date-btn:hover,
+.btn-outline-primary.change-date-btn:focus {
+  background-color: #0066b3 !important;
+  color: #fff !important;
+  border-color: #0066b3 !important;
+} */
+.pickup-date-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 24px;
+  /* Add horizontal margins so the date label and change button aren't flush with the viewport */
+  margin: 32px 24px 16px 24px;
+}
+.pickup-date-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0066b3;
+  margin-right: 8px; /* small gap to the change button */
+}
+.pickup-date-options {
+  display: flex;
+  gap: 12px;
+}
+.pickup-date-btn {
+  background: #e3eaf2;
+  color: #0066b3;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pickup-date-btn.today {
+  background: #0066b3;
+  color: #fff;
+}
+.pickup-date-btn.tomorrow:hover {
+  background: #c2d6ee;
+}
+
+.change-day-icon {
+  display: flex;
+  align-items: center;
+}
+.calendar-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+}
+.calendar-input {
+  background: #fff;
+  border: 2px solid #0066b3;
+  border-radius: 12px;
+  padding: 24px 32px;
+  font-size: 1.3rem;
+  margin: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* For Webkit browsers */
+
+.pickup-header {
+  color: #0066b3;
+  font-size: 2rem;
+  font-weight: 700;
+  padding: 24px 0 12px 32px;
+  border-radius: 0;
+  margin-bottom: 0;
+  box-shadow: none;
+  border-bottom: none;
+  width: 100%;
+  max-width: 100%;
+  text-align: left;
+}
+.request-details-section {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  /* padding: 32px 24px 48px 24px; */
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 102, 179, 0.08);
+}
+.request-details-header {
+  color: #0066b3;
+  background: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding: 12px 0;
+  width: 100%;
+  text-align: left;
+  border-bottom: 2px solid #e3eaf2;
+  box-sizing: border-box;
+}
+.pickup-address-subheading {
+  color: #0066b3;
+  font-size: 0.9rem;
+}
+
+.address-dropdown {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #b3c6e0;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-sizing: border-box;
+}
+.dropdown-icon-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+.dropdown-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.mandatory {
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+.specimen-details-subheading {
+  color: #0066b3;
+  font-size: 0.9rem;
+  /* font-weight: 600; */
+  margin-top: 15px;
+  margin-bottom: 6px;
+}
+.temperature-info-label {
+  color: #333;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.temperature-checkboxes label {
+  margin-right: 18px;
+  font-size: 1rem;
+  color: #333;
+}
+.pickup-location-label {
+  color: #333;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 18px;
+  margin-bottom: 6px;
+}
+.pickup-location-checkboxes label {
+  margin-right: 18px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.office-close-label {
+  color: #333;
+  font-size: 0.85rem; /* slightly reduced so full text fits above the select */
+  font-weight: 500;
+  margin: 0 0 4px 0; /* small spacing below label */
+}
+
+.office-close-dropdown {
+  width: 110px; /* further reduced width */
+  min-width: 80px;
+  max-width: 140px;
+  height: 28px; /* further reduced height */
+  padding: 4px 6px;
+  border-radius: 8px;
+  border: 2px solid #b3c6e0;
+  font-size: 1rem;
+  margin-bottom: 18px;
+}
+.pickup-location-checkboxes-inline {
+  display: flex;
+  align-items: flex-start; /* align controls at top so closure label sits above dropdown inline */
+  gap: 18px;
+  margin-bottom: 18px;
+  flex-wrap: nowrap; /* keep controls on one line */
+}
+/* New two-column header for pickup location and closure label */
+.pickup-location-label-row {
+  margin-top: 18px;
+  margin-bottom: 6px;
+}
+.pickup-location-label {
+  color: #333;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.closure-header-row {
+  margin-bottom: 8px;
+}
+.closure-header-label {
+  color: #333;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+.pickup-location-controls-row {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* keep controls closer together */
+  margin-bottom: 18px;
+}
+.location-checkboxes-controls {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.closure-control {
+  display: flex;
+  align-items: center;
+  margin-left: 12px; /* small gap from checkboxes so controls stay near each other */
+}
+.office-close-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+/* Make inline checkbox labels compact and vertically centered with the controls */
+.pickup-location-checkboxes-inline label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1rem;
+  color: #333;
+}
+.office-close-dropdown-inline {
+  width: 120px; /* compact width */
+  padding: 4px 0; /* small vertical padding, no horizontal padding to reduce boxiness */
+  border: none;
+  border-bottom: 1px dotted #0066b3; /* blue dotted underline only */
+  background: transparent;
+  font-size: 0.95rem;
+  margin-left: 0; /* align dropdown under label */
+  box-shadow: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: block;
+  height: 28px; /* consistent height so controls align */
+}
+
+.closure-display {
+  width: 120px;
+  padding: 4px 0;
+  border-bottom: 1px dotted #0066b3;
+  font-size: 0.95rem;
+  color: #333;
+  cursor: pointer;
+}
+
+.closure-panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: auto;
+  margin-top: 6px;
+  /* open below, at the right side, visually centered to the dotted line */
+  background: #fff;
+  border: 1px solid #cce3f6;
+  box-shadow: 0 2px 8px rgba(0, 102, 179, 0.08);
+  border-radius: 6px;
+  z-index: 200;
+  max-height: 120px;
+  overflow: auto;
+  /* width behavior: allow it to expand for content but cap to viewport / container */
+  width: auto;
+  min-width: 120px;
+  max-width: 220px;
+}
+
+.closure-item {
+  padding: 6px 10px;
+  font-size: 0.9rem; /* slightly smaller so longer times fit */
+  color: #333;
+  cursor: pointer;
+}
+.closure-item:hover {
+  background: #f4f8fb;
+}
+.office-close-label-inline {
+  font-size: 0.95rem; /* kept for backward compatibility but not used when label is block */
+  margin-left: 8px;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.office-close-inline {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 12px; /* spacing from the checkboxes */
+  min-width: 120px; /* ensure dropdown has room but keep compact */
+  align-self: flex-start; /* ensure top alignment in the row */
+  position: relative; /* anchor popup panel */
+}
+
+.office-close-icon {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 6px;
+  cursor: pointer;
+}
+.pickup-timeframe-label {
+  color: #0066b3;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+.pickup-timeframe-dropdown {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #b3c6e0;
+  font-size: 1rem;
+  margin-bottom: 18px;
+}
+.pickup-time-dropdown {
+  margin-left: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #cce3f6;
+  background: #fff;
+  color: #0066b3;
+  font-size: 1rem;
+}
+.pickup-timeframe-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+.pickup-radio {
+  font-size: 1rem;
+  color: #333;
+  margin-right: 12px;
+}
+.clear-btn {
+  background: #fff;
+  color: #0066b3;
+  border: 2px solid #b3c6e0;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.clear-btn:hover {
+  background: #e3eaf2;
+  border-color: #0066b3;
+}
+.pickup-interval-dropdown {
+  width: 180px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 2px solid #b3c6e0;
+  font-size: 1rem;
+  margin-left: 8px;
+}
+.pickup-timeframe-label-row {
+  display: flex;
+  align-items: center;
+  gap: 4px; /* Reduced gap for closer icon */
+  margin-bottom: 8px;
+}
+.dropdown-icon.clickable {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.pickup-timeframe-dropdown-panel {
+  background: #f8fafd;
+  border: 1px solid #cce3f6;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 102, 179, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 350px;
+}
+.indicate-pickup-timeframe-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.indicate-pickup-timeframe-label {
+  font-weight: 600;
+  color: #0066b3;
+  font-size: 1rem;
+}
+.pickup-radio-inline {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+}
+.clear-btn-inline {
+  padding: 4px 12px;
+  background: #e6f2fa;
+  border: 1px solid #cce3f6;
+  border-radius: 4px;
+  color: #0066b3;
+  font-weight: 500;
+  cursor: pointer;
+}
+.indicate-pickup-timeframe-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8fafd;
+  border: 1px solid #cce3f6;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 102, 179, 0.08);
+  max-width: 400px;
+}
+.indicate-pickup-timeframe-header {
+  margin-top: 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0066b3;
+  text-align: left;
+  display: block;
+  border: 2px solid #0066b3;
+  border-radius: 8px;
+  padding: 12px 16px;
+  background: #f8fafd;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.indicate-pickup-timeframe-controls {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 8px;
+}
+.specimen-action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 32px;
+  margin-bottom: 10px;
+}
+.specimen-action-buttons.middle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.submit-btn {
+  background: #0066b3;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.submit-btn.enabled {
+  background: #0066b3;
+  color: #fff;
+}
+.submit-btn.disabled {
+  background: #b3d4f7;
+  color: #fff;
+}
+.cancel-btn {
+  background: #e6f2fa;
+  color: #0066b3;
+  border: 1px solid #cce3f6;
+  border-radius: 6px;
+  padding: 10px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.mandatory-error {
+  color: #d32f2f;
+  font-size: 0.95rem;
+  margin-left: 12px;
+  font-weight: 500;
+}
+
+.pickup-schedule-subheading {
+  color: #0066b3;
+  font-weight: 500;
+  font-size: large;
+}
+
+.calendar-btn {
+  color: #0066b3;
+}
+
+.request-details-subheading {
+  color: #0066b3;
+  font-weight: 500;
+  font-size: large;
+}
